@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\Api\CategoryController;
-use App\Http\Controllers\Api\ProductController;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CategoryControler;
+use App\Http\Controllers\Api\ProductControler;
+use App\Http\Controllers\Api\UploadController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -19,6 +21,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/login', [AuthController::class,'login']);
+Route::post('/register', [AuthController::class,'register']);
+Route::post('/logout', [AuthControllerController::class,'logout'])
+->middleware('auth:sanctum');
+Route::post('image/upload', [UploadController::class,'uploadImage'])
+->middleware('auth:sanctum');
+Route::post('image/upload-multiple', [UploadController::class,'uploadMultipleImage'])
+->middleware('auth:sanctum');
 
 Route::apiResource('categories', CategoryController::class);
 Route::apiResource('products', ProductController::class);
